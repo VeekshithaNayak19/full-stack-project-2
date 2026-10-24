@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #173b70;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        main {
+            max-width: 1150px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #173b70;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2563eb;
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px;
+            font-size: 15px;
+            color: #475569;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b70;
+            overflow-wrap: anywhere;
+        }
+
+        #courseCounts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .course-card {
+            padding: 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .course-card strong {
+            display: block;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 11px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .actions {
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .secondary {
+            background: #475569;
+        }
+
+        .secondary:hover {
+            background: #334155;
+        }
+
+        .danger {
+            background: #dc2626;
+        }
+
+        .danger:hover {
+            background: #b91c1c;
+        }
+
+        .edit-button {
+            background: #0f766e;
+        }
+
+        .edit-button:hover {
+            background: #115e59;
+        }
+
+        #message, #searchMessage {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+            overflow-wrap: anywhere;
+        }
+
+        #message.success, #searchMessage.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        #message.error, #searchMessage.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        th {
+            background: #eff6ff;
+        }
+
+        td {
+            overflow-wrap: anywhere;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .table-actions button {
+            padding: 8px 10px;
+        }
+
+        .empty {
+            color: #64748b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Student Information System</h1>
+        <p>Register, search, edit and manage student information</p>
+    </header>
+
+    <main>
+        <!-- Dashboard -->
+        <section class="card">
+            <h2>Dashboard</h2>
+
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total Students</h3>
+                    <p id="dashboardTotal">0</p>
+                </div>
+            </div>
+
+            <h3>Students by Course</h3>
+            <div id="courseCounts">
+                <p class="empty">Loading course statistics...</p>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="refreshDashboard" class="secondary">
+                    Refresh Dashboard
+                </button>
+            </div>
+        </section>
+
+        <!-- Student Registration and Editing -->
+        <section class="card">
+            <h2 id="formTitle">Student Registration</h2>
+
+            <form id="studentForm">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" minlength="2" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone"
+                            pattern="[0-9]{10}" maxlength="10"
+                            minlength="10" inputmode="numeric"
+                            title="Enter exactly 10 digits" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="age">Age *</label>
+                        <input type="number" id="age" min="1"
+                            max="120" step="1" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="course">Course *</label>
+                        <input type="text" id="course"
+                            placeholder="Example: MCA" required>
+                    </div>
+
+                    <div class="field full-width">
+                        <label for="address">Address *</label>
+                        <textarea id="address" required></textarea>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" id="submitButton">Add Student</button>
+                    <button type="reset" class="secondary">Clear Form</button>
+                    <button type="button" id="cancelEdit"
+                        class="secondary" hidden>Cancel Edit</button>
+                </div>
+            </form>
+
+            <div id="message" role="status" aria-live="polite"></div>
+        </section>
+
+        <!-- Search Student -->
+        <section class="card">
+            <h2>Search Student</h2>
+
+            <div class="search-box">
+                <input type="text" id="searchInput"
+                    placeholder="Enter student ID, name, or email">
+
+                <button type="button" id="searchButton">Search</button>
+
+                <button type="button" id="showAllButton" class="secondary">
+                    Show All
+                </button>
+            </div>
+
+            <div id="searchMessage" role="status" aria-live="polite"></div>
+        </section>
+
+        <!-- Student List -->
+        <section class="card">
+            <h2>Registered Students</h2>
+
+            <div class="actions">
+                <button type="button" id="refreshButton" class="secondary">
+                    Refresh Student List
+                </button>
+            </div>
+
+            <p id="totalStudents">Total Students: 0</p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Age</th>
+                            <th>Course</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="studentTable">
+                        <tr>
+                            <td colspan="8" class="empty">Loading students...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Student Information System | Full Stack Backend API Project
+    </footer>
+
+    <script>
+        const form = document.getElementById("studentForm");
+        const message = document.getElementById("message");
+        const submitButton = document.getElementById("submitButton");
+        const studentTable = document.getElementById("studentTable");
+        const totalStudents = document.getElementById("totalStudents");
+        const searchInput = document.getElementById("searchInput");
+        const searchMessage = document.getElementById("searchMessage");
+
+        let editingId = null;
+
+        // Display success or error messages
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = type;
+        }
+
+        function showSearchMessage(text, type = "") {
+            searchMessage.textContent = text;
+            searchMessage.className = type;
+        }
+
+        function clearMessages() {
+            message.textContent = "";
+            message.className = "";
+        }
+
+        function clearSearchMessage() {
+            searchMessage.textContent = "";
+            searchMessage.className = "";
+        }
+
+        // Load all students from the server
+        async function loadStudents() {
+            try {
+                const response = await fetch("/api/students");
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Could not load students");
+                }
+
+                displayStudents(result.data, result.total);
+            } catch (error) {
+                studentTable.replaceChildren();
+                totalStudents.textContent = "Unable to load students";
+
+                const row = studentTable.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 8;
+                cell.className = "empty";
+                cell.textContent = error.message;
+            }
+        }
+
+        // Display students in the table
+        function displayStudents(students, total = students.length) {
+            studentTable.replaceChildren();
+
+            totalStudents.textContent =
+                "Total Students: " + total +
+                (students.length !== total
+                    ? " | Students displayed: " + students.length
+                    : "");
+
+            if (students.length === 0) {
+                const row = studentTable.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 8;
+                cell.className = "empty";
+                cell.textContent = "No students found.";
+                return;
+            }
+
+            students.forEach(student => {
+                const row = studentTable.insertRow();
+
+                [
+                    student.id,
+                    student.fullName,
+                    student.email,
+                    student.phone,
+                    student.age,
+                    student.course,
+                    student.address
+                ].forEach(value => {
+                    const cell = row.insertCell();
+                    cell.textContent = value ?? "";
+                });
+
+                const actionsCell = row.insertCell();
+                const actions = document.createElement("div");
+                actions.className = "table-actions";
+
+                const editButton = document.createElement("button");
+                editButton.type = "button";
+                editButton.textContent = "Edit";
+                editButton.className = "edit-button";
+                editButton.addEventListener("click", () => editStudent(student));
+
+                const deleteButton = document.createElement("button");
+                deleteButton.type = "button";
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "danger";
+                deleteButton.addEventListener("click", () =>
+                    deleteStudent(student.id, student.fullName)
+                );
+
+                actions.append(editButton, deleteButton);
+                actionsCell.appendChild(actions);
+            });
+        }
+
+        // Load dashboard 
+        async function loadDashboard() {
+            const dashboardTotal = document.getElementById("dashboardTotal");
+            const courseCounts = document.getElementById("courseCounts");
+
+            try {
+                const response = await fetch("/api/dashboard");
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Unable to load dashboard");
+                }
+
+                dashboardTotal.textContent = result.totalStudents;
+                courseCounts.replaceChildren();
+
+                const courses = Object.entries(result.courseCounts);
+
+                if (courses.length === 0) {
+                    const empty = document.createElement("p");
+                    empty.className = "empty";
+                    empty.textContent = "No course records yet.";
+                    courseCounts.appendChild(empty);
+                    return;
+                }
+
+                courses.sort((a, b) => a[0].localeCompare(b[0]));
+
+                courses.forEach(([course, count]) => {
+                    const card = document.createElement("div");
+                    card.className = "course-card";
+
+                    const name = document.createElement("strong");
+                    name.textContent = course;
+
+                    const total = document.createElement("span");
+                    total.textContent = count + " student(s)";
+
+                    card.append(name, total);
+                    courseCounts.appendChild(card);
+                });
+            } catch (error) {
+                dashboardTotal.textContent = "Error";
+                courseCounts.textContent = error.message;
+            }
+        }
+
+        // Refresh both the list and dashboard
+        async function refreshAll() {
+            await Promise.all([loadStudents(), loadDashboard()]);
+        }
+
+        // adding new student
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.textContent =
+                editingId === null ? "Saving..." : "Updating...";
+
+            const student = {
+                fullName: document.getElementById("fullName").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                age: document.getElementById("age").value,
+                course: document.getElementById("course").value.trim(),
+                address: document.getElementById("address").value.trim()
+            };
+
+            const isEditing = editingId !== null;
+            const url = isEditing
+                ? "/api/students/" + editingId
+                : "/api/students";
+
+            try {
+                const response = await fetch(url, {
+                    method: isEditing ? "PUT" : "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(student)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Operation failed");
+                }
+
+                showMessage(
+                    result.message + ". Student ID: " + result.data.id,
+                    "success"
+                );
+
+                form.reset();
+                stopEditing();
+                searchInput.value = "";
+                clearSearchMessage();
+
+                await refreshAll();
+            } catch (error) {
+                showMessage(error.message, "error");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent =
+                    editingId === null ? "Add Student" : "Update Student";
+            }
+        });
+
+        
+        function editStudent(student) {
+            editingId = student.id;
+
+            document.getElementById("fullName").value = student.fullName || "";
+            document.getElementById("email").value = student.email || "";
+            document.getElementById("phone").value = student.phone || "";
+            document.getElementById("age").value = student.age ?? "";
+            document.getElementById("course").value = student.course || "";
+            document.getElementById("address").value = student.address || "";
+
+            document.getElementById("formTitle").textContent =
+                "Edit Student (ID: " + student.id + ")";
+
+            submitButton.textContent = "Update Student";
+            document.getElementById("cancelEdit").hidden = false;
+
+            clearMessages();
+            form.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        // Cancel editing
+        function stopEditing() {
+            editingId = null;
+
+            document.getElementById("formTitle").textContent =
+                "Student Registration";
+
+            submitButton.textContent = "Add Student";
+            document.getElementById("cancelEdit").hidden = true;
+        }
+
+        document.getElementById("cancelEdit").addEventListener("click", () => {
+            form.reset();
+            stopEditing();
+            clearMessages();
+        });
+
+        form.addEventListener("reset", () => {
+            clearMessages();
+            stopEditing();
+        });
+
+        // Delete student after confirmation
+        async function deleteStudent(id, name) {
+            const confirmed = confirm(
+                "Are you sure you want to delete " + name +
+                " (ID: " + id + ")? This cannot be undone."
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/students/" + id, {
+                    method: "DELETE"
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Could not delete student");
+                }
+
+                if (editingId === id) {
+                    form.reset();
+                    stopEditing();
+                }
+
+                showMessage(result.message, "success");
+                searchInput.value = "";
+                clearSearchMessage();
+
+                await refreshAll();
+            } catch (error) {
+                showMessage(error.message, "error");
+            }
+        }
+
+        // Search  student ID, name, or email
+        async function searchStudents() {
+            const query = searchInput.value.trim();
+
+            if (!query) {
+                showSearchMessage(
+                    "Please enter a student ID, name, or email.",
+                    "error"
+                );
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    "/api/students/search?q=" + encodeURIComponent(query)
+                );
+
+                const result = await response.json();
+
+                if (response.status === 404) {
+                    displayStudents([], 0);
+                    showSearchMessage("No matching student found.", "error");
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Search failed");
+                }
+
+                displayStudents(result.data, result.total);
+
+                showSearchMessage(
+                    result.total + " matching student(s) found.",
+                    "success"
+                );
+            } catch (error) {
+                showSearchMessage(error.message, "error");
+            }
+        }
+
+        document.getElementById("searchButton").addEventListener(
+            "click",
+            searchStudents
+        );
+
+        searchInput.addEventListener("keydown", event => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchStudents();
+            }
+        });
+
+        // Show all students details
+        document.getElementById("showAllButton").addEventListener(
+            "click",
+            async function() {
+                searchInput.value = "";
+                clearSearchMessage();
+                await loadStudents();
+            }
+        );
+
+        //  Refresh Student List
+        document.getElementById("refreshButton").addEventListener(
+            "click",
+            async function() {
+                searchInput.value = "";
+                clearSearchMessage();
+                await refreshAll();
+                showMessage("Student list refreshed successfully.", "success");
+            }
+        );
+
+        // dashboard
+        document.getElementById("refreshDashboard").addEventListener(
+            "click",
+            async function() {
+                await loadDashboard();
+                showMessage("Dashboard refreshed successfully.", "success");
+            }
+        );
+
+        // refresh
+        refreshAll();
+    </script>
+</body>
+</html>
