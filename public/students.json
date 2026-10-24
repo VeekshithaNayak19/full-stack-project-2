@@ -1,0 +1,155 @@
+[
+  {
+    "id": 2,
+    "fullName": "Ananya",
+    "email": "ananya@gmail.com",
+    "phone": "8564123078",
+    "age": 25,
+    "course": "MCA",
+    "address": "UDUPI"
+  },
+  {
+    "id": 3,
+    "fullName": "Rahul",
+    "email": "rahul.sharma@gmail.com",
+    "phone": "9876543210",
+    "age": 22,
+    "course": "MCA",
+    "address": "Manipal, Karnataka"
+  },
+  {
+    "id": 4,
+    "fullName": "Priya Nayak",
+    "email": "priya.nayak@gmail.com",
+    "phone": "9123456774",
+    "age": 22,
+    "course": "MCA",
+    "address": "Mangalore, Karnataka"
+  },
+  {
+    "id": 5,
+    "fullName": "Arjun Kumar",
+    "email": "arjun.kumar@gmail.com",
+    "phone": "9988776655",
+    "age": 21,
+    "course": "B.Tech",
+    "address": "Bengaluru, Karnataka"
+  },
+  {
+    "id": 6,
+    "fullName": "Sneha Rao",
+    "email": "sneha.rao@gmail.com",
+    "phone": "9876501234",
+    "age": 20,
+    "course": "BCA",
+    "address": "Udupi, Karnataka"
+  },
+  {
+    "id": 7,
+    "fullName": "Kiran Shetty",
+    "email": "kiran.shetty@gmail.com",
+    "phone": "9876512345",
+    "age": 24,
+    "course": "MBA",
+    "address": "Mangalore, Karnataka"
+  },
+  {
+    "id": 8,
+    "fullName": "Rohan Patil",
+    "email": "rohan.patil@gmail.com",
+    "phone": "9876534567",
+    "age": 22,
+    "course": "B.Tech",
+    "address": "Belagavi, Karnataka"
+  },
+  {
+    "id": 9,
+    "fullName": "Divya Kulkarni",
+    "email": "divya.kulkarni@gmail.com",
+    "phone": "8745632145",
+    "age": 22,
+    "course": "MSC",
+    "address": "Mysuru, Karnataka"
+  },
+  {
+    "id": 10,
+    "fullName": "Meera Joshi",
+    "email": "meera.joshi10@gmail.com",
+    "phone": "7896541236",
+    "age": 22,
+    "course": "MCA",
+    "address": "Shivamogga, Karnataka"
+  },
+  {
+    "id": 11,
+    "fullName": "Aditya Rao",
+    "email": "aditya.rao11@gmail.com",
+    "phone": "8765432190",
+    "age": 24,
+    "course": "M.Tech",
+    "address": "Hubballi, Karnataka"
+  },
+  {
+    "id": 12,
+    "fullName": "Pooja",
+    "email": "pooja12@gmail.com",
+    "phone": "9854763215",
+    "age": 21,
+    "course": "BCA",
+    "address": "Dharwad, Karnataka"
+  },
+  {
+    "id": 13,
+    "fullName": "Shravya",
+    "email": "shrav@gmail.com",
+    "phone": "8567412366",
+    "age": 20,
+    "course": "BCA",
+    "address": "Udupi, Karnataka"
+  },
+  {
+    "id": 14,
+    "fullName": "SONU",
+    "email": "sonu@gmail.com",
+    "phone": "7451236985",
+    "age": 22,
+    "course": "BCOM",
+    "address": "MANIPAL, KARNATAKA"
+  },
+  {
+    "id": 15,
+    "fullName": "KARTHIK",
+    "email": "karthik@gmail.com",
+    "phone": "7896523654",
+    "age": 20,
+    "course": "BSC",
+    "address": "UDUPI, KARNATAKA"
+  },
+  {
+    "id": 16,
+    "fullName": "Veekshitha Nayak",
+    "email": "nayakveekshitha@gmail.com",
+    "phone": "8745631458",
+    "age": 22,
+    "course": "MSC",
+    "address": "Manipal, Udupi, Karnataka"
+  },
+  {
+    "id": 17,
+    "fullName": "Vikas nayak",
+    "email": "vikasnayak@gmail.com",
+    "phone": "9874563215",
+    "age": 24,
+    "course": "M.Tech",
+    "address": "Mangalore"
+  },
+  {
+    "id": 18,
+    "fullName": "Anusha",
+    "email": "anu@gmail.com",
+    "phone": "8753215689",
+    "age": 22,
+    "course": "MSC",
+    "address": "Pune"
+  }
+]
